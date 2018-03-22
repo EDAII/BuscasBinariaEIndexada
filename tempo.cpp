@@ -5,6 +5,8 @@
 
 using namespace std;
 
+int total = 0;
+
 double calcula_tempo(const struct rusage *b, const struct rusage *a) {
     if (b == NULL || a == NULL)
         return 0;
@@ -31,6 +33,34 @@ bool buscaBinaria (int x, int n, int v[]) {
    return false;
 }
 
+bool buscaIndexada (int num, int vetor[], int tabela_de_indices[], int aux){
+  int j = 0;
+  for (size_t i = 0; i < total; i++) {
+    j = i;
+    if(tabela_de_indices[i] > num){
+      break;
+    } else if (tabela_de_indices[i] == num){
+        return true;
+    }
+  }
+  int p = (aux/4)*j;
+
+  if (num < vetor[p]){
+    while (num < vetor[p]){
+      p--;
+      if(num == vetor[p])
+        return true;
+    }
+  } else {
+    while (num > vetor[p]){
+      p++;
+      if(num == vetor[p])
+        return true;
+    }
+  }
+  return false;
+}
+/*
 int buscaIndexada(int num, int vetor[], int tabela_de_indices[], int aux){
   int i=0,j=0;
   if(num ==0){
@@ -45,6 +75,7 @@ int buscaIndexada(int num, int vetor[], int tabela_de_indices[], int aux){
   else if(num < tabela_de_indices[i]){
     j = (i*(aux/4));
     while(num < vetor[j]){
+      cout << j << endl;
       j--;
     }
     if(num ==vetor[j]){
@@ -53,14 +84,22 @@ int buscaIndexada(int num, int vetor[], int tabela_de_indices[], int aux){
     else{
       return 0;
     }
+  } else {
+    cout << "ENTROU AQUI" << endl.
   }
-}
+} */
 
 void preenche_tabela(int vetor[], int aux, int tabela_de_indices[]){
   int i=0;
 
   while(i < (aux/4)){
-    tabela_de_indices[i] = vetor[i*(aux/4)];
+    if(i*(aux/4)< aux){
+      total++;
+      tabela_de_indices[i] = vetor[i*(aux/4)];
+    } else{
+      total++;
+      tabela_de_indices[i] = vetor[aux-1];
+    }
     i++;
   }
 }
@@ -92,13 +131,14 @@ int main(){
   cout << endl;
   cout << "Número a ser procurado no vetor: ";
   cin >> num;
+  cout << endl;
 
   getrusage(RUSAGE_SELF, &tempo_inicial);
   bool resposta = buscaBinaria(num, aux, vetor);
   if (resposta)
     cout << "Encontrado na busca binária" << endl;
   else
-    cout << "Não encoutrado na busca binária" << endl;
+    cout << "Não encontrado na busca binária" << endl;
   getrusage(RUSAGE_SELF, &tempo_final);
   tempo = calcula_tempo(&tempo_inicial, &tempo_final);
 
@@ -109,10 +149,11 @@ int main(){
   }
   else{
     printf("Não encontrado na busca sequencial indexada\n");
-  }
+  }  
   getrusage(RUSAGE_SELF, &tempo_final);
   tempo2 = calcula_tempo(&tempo_inicial, &tempo_final);
 
+  cout << endl;
 
   printf("Tempo busca binária: %lf\n",tempo);
   printf("Tempo busca sequencial indexada: %lf\n",tempo2);
