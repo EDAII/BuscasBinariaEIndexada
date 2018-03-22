@@ -31,10 +31,6 @@ bool buscaBinaria (int x, int n, int v[]) {
    return false;
 }
 
-int numeroAleatorio(int menor, int maior) {
-  return rand()%(maior-menor+1) + menor;
-}
-
 int buscaIndexada(int num, int vetor[], int tabela_de_indices[], int aux){
   int i=0,j=0;
   if(num ==0){
@@ -71,57 +67,55 @@ void preenche_tabela(int vetor[], int aux, int tabela_de_indices[]){
 
 int main(){
 
-struct rusage tempo_inicial, tempo_final;
-double tempo;
-int aux;
-int num;
+  struct rusage tempo_inicial, tempo_final;
+  double tempo,tempo2;
+  int aux;
+  int num;
 
-cout << "Informe o tamanho do vetor (caso menor que 20, os valores irão aparecer no console) = ";
-cin >> aux;
+  cout << "Informe o tamanho do vetor (se < 20, aparecerá no console) = ";
+  cin >> aux;
 
-int tabela_de_indices[aux/4];
-int vetor[aux];
-
-  for (int i=0; i < aux; i++){
-    vetor[i] = numeroAleatorio(0, 10000);
+  int tabela_de_indices[aux/4];
+  int vetor[aux];
+  vetor[0]= 2000;
+  srand((unsigned)time(NULL));
+  for (int i=1; i < aux; i++){
+    vetor[i] = rand()%10000;
   }
   sort (vetor, vetor+aux);
 
   if (aux <= 20){
     for (size_t i = 0; i < aux; i++)
       cout << vetor[i] << " ";
-    }
+  }
+
   cout << endl;
   cout << "Número a ser procurado no vetor: ";
   cin >> num;
 
   getrusage(RUSAGE_SELF, &tempo_inicial);
-
-
   bool resposta = buscaBinaria(num, aux, vetor);
   if (resposta)
-    cout << "Achou na busca binária" << endl;
+    cout << "Encontrado na busca binária" << endl;
   else
-    cout << "Não achou na busca binária" << endl;
-
+    cout << "Não encoutrado na busca binária" << endl;
   getrusage(RUSAGE_SELF, &tempo_final);
-
   tempo = calcula_tempo(&tempo_inicial, &tempo_final);
 
   getrusage(RUSAGE_SELF, &tempo_inicial);
-
   preenche_tabela(vetor, aux, tabela_de_indices);
-
   if(buscaIndexada(num, vetor, tabela_de_indices, aux)){
-    printf("Encontrado\n");
+    printf("Encontrado na busca sequencial indexada\n");
   }
   else{
-    printf("Não encontrado\n");
+    printf("Não encontrado na busca sequencial indexada\n");
   }
   getrusage(RUSAGE_SELF, &tempo_final);
+  tempo2 = calcula_tempo(&tempo_inicial, &tempo_final);
 
-  double tempo2 = calcula_tempo(&tempo_inicial, &tempo_final);
-  printf("%lf\n",tempo);
-  printf("%lf\n",tempo2);
-return 0;
+
+  printf("Tempo busca binária: %lf\n",tempo);
+  printf("Tempo busca sequencial indexada: %lf\n",tempo2);
+
+  return 0;
 }
