@@ -43,7 +43,7 @@ bool buscaIndexada (int num, int vetor[], int tabela_de_indices[], int aux){
         return true;
     }
   }
-  int p = (aux/4)*j;
+  int p = (aux/8)*j;
 
   if (num < vetor[p]){
     while (num < vetor[p]){
@@ -60,42 +60,14 @@ bool buscaIndexada (int num, int vetor[], int tabela_de_indices[], int aux){
   }
   return false;
 }
-/*
-int buscaIndexada(int num, int vetor[], int tabela_de_indices[], int aux){
-  int i=0,j=0;
-  if(num ==0){
-    return 0;
-  }
-  while(num > tabela_de_indices[i] && i<(aux/4)){
-    i++;
-  }
-  if(num == tabela_de_indices[i]){
-    return 1;
-  }
-  else if(num < tabela_de_indices[i]){
-    j = (i*(aux/4));
-    while(num < vetor[j]){
-      cout << j << endl;
-      j--;
-    }
-    if(num ==vetor[j]){
-      return 1;
-    }
-    else{
-      return 0;
-    }
-  } else {
-    cout << "ENTROU AQUI" << endl.
-  }
-} */
 
 void preenche_tabela(int vetor[], int aux, int tabela_de_indices[]){
   int i=0;
 
-  while(i < (aux/4)){
-    if(i*(aux/4)< aux){
+  while(i < (aux/8)){
+    if(i*(aux/8)< aux){
       total++;
-      tabela_de_indices[i] = vetor[i*(aux/4)];
+      tabela_de_indices[i] = vetor[i*(aux/8)];
     } else{
       total++;
       tabela_de_indices[i] = vetor[aux-1];
@@ -111,12 +83,13 @@ int main(){
   int aux;
   int num;
 
-  cout << "Informe o tamanho do vetor (se < 20, aparecerá no console) = ";
+  cout << "Informe o tamanho do vetor (se < 20, aparecerá no console)" << endl;
+  cout << "Ps: o número 2000 sempre estará no vetor" << endl;
   cin >> aux;
 
-  int tabela_de_indices[aux/4];
+  int tabela_de_indices[aux/8];
   int vetor[aux];
-  vetor[0]= 2000;
+  vetor[0]= 2000; //2000 sempre deverá ser encontrado
   srand((unsigned)time(NULL));
   for (int i=1; i < aux; i++){
     vetor[i] = rand()%10000;
@@ -149,7 +122,7 @@ int main(){
   }
   else{
     printf("Não encontrado na busca sequencial indexada\n");
-  }  
+  }
   getrusage(RUSAGE_SELF, &tempo_final);
   tempo2 = calcula_tempo(&tempo_inicial, &tempo_final);
 

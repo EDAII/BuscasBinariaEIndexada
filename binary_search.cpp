@@ -4,7 +4,7 @@ using namespace std;
 bool buscaBinaria (int x, int n, int v[]);
 
 int main(int argc, char const *argv[]) {
-  int aux = 1000000000;
+  int aux = 10000;
   int vetor[aux];
   int contador=0;
 
@@ -12,7 +12,7 @@ int main(int argc, char const *argv[]) {
     vetor[i] = i;
   }
 
-  bool resultado = true; //buscaBinaria (101, aux ,vetor);
+  bool resultado = buscaBinaria (101, aux ,vetor);
 
   if (resultado == true)
     cout << "achou" << endl;
@@ -24,7 +24,7 @@ int main(int argc, char const *argv[]) {
 // x = número a ser procurado
 // n = tamanho do vector
 // v[] = vetor
-/*bool buscaBinaria (int x, int n, int v[]) {
+bool buscaBinaria (int x, int n, int v[]) {
    int e, m, d;
    e = 0; d = n-1;
    while (e <= d) {
@@ -34,4 +34,4 @@ int main(int argc, char const *argv[]) {
       else d = m - 1;
    }
    return false;
-} */
+}

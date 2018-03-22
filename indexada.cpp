@@ -15,6 +15,7 @@ void preenche_tabela(){
   }
 }
 
+//Algoritmo com erro
 int busca(int num){
   int i=0,j=0;
   if(num ==0){
@@ -39,6 +40,35 @@ int busca(int num){
     }
   }
 }
+
+/*
+int buscaIndexada(int num, int vetor[], int tabela_de_indices[], int aux){
+  int i=0,j=0;
+  if(num ==0){
+    return 0;
+  }
+  while(num > tabela_de_indices[i] && i<(aux/4)){
+    i++;
+  }
+  if(num == tabela_de_indices[i]){
+    return 1;
+  }
+  else if(num < tabela_de_indices[i]){
+    j = (i*(aux/4));
+    while(num < vetor[j]){
+      cout << j << endl;
+      j--;
+    }
+    if(num ==vetor[j]){
+      return 1;
+    }
+    else{
+      return 0;
+    }
+  } else {
+    cout << "ENTROU AQUI" << endl.
+  }
+} */
 
 int main(){
   int cont1=0,cont2=0;
