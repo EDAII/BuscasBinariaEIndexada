@@ -34,7 +34,7 @@ bool buscaBinaria (int x, int n, int v[]) {
 int numeroAleatorio(int menor, int maior) {
   return rand()%(maior-menor+1) + menor;
 }
-
+/*
 int funcao(int x, int y,int z){
 int i,j;
 for(i=0;i<x;i++){
@@ -44,24 +44,29 @@ for(i=0;i<x;i++){
 }
 return z;
 }
+*/
 
 int main(){
 
 struct rusage tempo_inicial, tempo_final;
 double tempo;
 int z;
-int aux = 10000000;
+int aux = 1000000;
 int vetor[aux];
 
 
-
-for (int i=0; i < aux; i++){
-  vetor[i] = numeroAleatorio(0, 10000);
-}
-
 getrusage(RUSAGE_SELF, &tempo_inicial);
   //   z = funcao(10000,10000,z);
-    z = buscaBinaria(111, aux, vetor);
+    for (int i=0; i < aux; i++){
+      vetor[i] = numeroAleatorio(0, 10000);
+    }
+    sort (vetor, vetor+aux);
+    bool resposta = buscaBinaria(1101, aux, vetor);
+    if (resposta)
+      cout << "Achou" << endl;
+    else
+      cout << "Não achou" << endl;
+
     getrusage(RUSAGE_SELF, &tempo_final);
 
 tempo = calcula_tempo(&tempo_inicial, &tempo_final);
