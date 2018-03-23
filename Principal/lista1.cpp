@@ -1,3 +1,24 @@
+/*
+Estrutura de Dados e Algoritmos 2
+
+Professor: Maurício Serrano
+
+Alunos:
+-Rômulo Vinícius de Souza 15/0147601
+-João Vítor Morandi Lemos 16/0010195
+
+Este código consiste em 2 tipos de busca em um vetor ordenado:
+-Busca sequencial indexada
+-Busca binária
+
+Como funciona:
+O usuário deve inserir o tamanho do vetor de sua preferência.
+Será gerado um vetor ordenado de números aleatórios, e então o usuário poderá
+procurar um número de sua escolha nesse vetor, sendo que o número 2000 já é
+inserido automaticamente. O código também apresenta a velocidade com que foi
+feita a busca das 2 maneiras.
+*/
+
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <stdio.h>
